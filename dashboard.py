@@ -81,8 +81,8 @@ section[data-testid="stSidebar"] input {{
     border: 1px solid {BORDER};
     margin-bottom: 1px;
 }}
-.kpi-row-6 {{ grid-template-columns: repeat(6, 1fr); }}
-.kpi-row-4 {{ grid-template-columns: repeat(4, 1fr); }}
+.kpi-row-6 {{ grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }}
+.kpi-row-4 {{ grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }}
 
 .kpi-card {{
     background: {GREY1};
@@ -107,7 +107,9 @@ section[data-testid="stSidebar"] input {{
     background: {ORANGE};
 }}
 .kpi-label {{
-    font-size: 0.62rem;
+    font-size: 0.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -330,6 +332,20 @@ div[data-baseweb="slider"] div[role="slider"] {{ background: {ORANGE} !important
     background: rgba(255,61,0,0.08) !important;
     border: 1px solid rgba(255,61,0,0.3) !important;
     border-radius: 0 !important;
+}}
+
+
+@media (max-width: 640px) {{
+    .topbar-right {{ display: none !important; }}
+    .topbar-center {{ padding: 0 12px; }}
+    .topbar-title {{ font-size: 0.75rem; letter-spacing: 0.1em; }}
+    .topbar-logo {{ padding: 12px 14px; }}
+    .logo-box {{ width: 32px; height: 32px; font-size: 1.1rem; }}
+    .kpi-card {{ padding: 16px 12px 12px; }}
+    .kpi-value {{ font-size: 2.2rem; }}
+    .main .block-container {{ padding: 0 0.5rem 3rem !important; }}
+    .insight-bar {{ margin: 0 -0.5rem; font-size: 0.65rem; }}
+    .section-hdr {{ padding: 16px 0 10px; }}
 }}
 
 /* Scrollbar */
