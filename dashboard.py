@@ -81,8 +81,8 @@ section[data-testid="stSidebar"] input {{
     border: 1px solid {BORDER};
     margin-bottom: 1px;
 }}
-.kpi-row-6 {{ grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }}
-.kpi-row-4 {{ grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }}
+.kpi-row-6 {{ grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }}
+.kpi-row-4 {{ grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }}
 
 .kpi-card {{
     background: {GREY1};
@@ -724,7 +724,7 @@ st.markdown(
     kpi("Proj. Connected",  f"{p_conn:,}",          f"{pa}% of {pc} calls") +
     kpi("Proj. Bookings",   f"{p_book:,}",           f"{pv}% conversion", orange=True) +
     kpi("Proj. Revenue",    f"${p_rev:,.0f}",        f"{p_book} × ${deal_value:,}", orange=True) +
-    kpi("Proj. ROI",        f"{p_roi:.0f}%",         f"net ${p_rev-p_cost:,.0f}", orange=p_roi>=0, sub_type="up" if p_roi>=0 else "down") +
+    kpi("Proj. ROI",        f"{min(p_roi,9999):.0f}%{chr(43) if p_roi>9999 else ""}",  f"net ${p_rev-p_cost:,.0f}", orange=p_roi>=0, sub_type="up" if p_roi>=0 else "down") +
     '</div>',
     unsafe_allow_html=True,
 )
