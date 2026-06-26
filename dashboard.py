@@ -353,6 +353,20 @@ div[data-baseweb="slider"] div[role="slider"] {{ background: {ORANGE} !important
 ::-webkit-scrollbar-track {{ background: {BLACK}; }}
 ::-webkit-scrollbar-thumb {{ background: {ORANGE}; }}
 
+
+/* ── Mobile ── */
+@media (max-width: 640px) {{
+    .main .block-container {{ padding: 0 0.5rem 3rem !important; }}
+    .topbar-right {{ display: none !important; }}
+    .topbar-center {{ padding: 0 12px; }}
+    .topbar-logo {{ padding: 12px 14px; }}
+    .kpi-card {{ padding: 16px 12px 12px; }}
+    .kpi-value {{ font-size: 2rem; }}
+    .kpi-label {{ font-size: 0.55rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+    .insight-bar {{ margin: 0 -0.5rem; font-size: 0.65rem; padding: 10px 12px; }}
+    .section-hdr {{ padding: 16px 0 10px; }}
+}}
+
 /* Divider */
 hr {{ border: none !important; border-top: 1px solid {BORDER} !important; margin: 0 !important; }}
 </style>
