@@ -619,7 +619,8 @@ with col2:
         oc_cnt = df[C["outcome"]].str.lower().str.strip().value_counts().reset_index()
         oc_cnt.columns = ["outcome","count"]
         oc_cnt["label"] = oc_cnt["outcome"].map(lambda x: OUTCOME_MAP.get(x, x.title()))
-        colors = [ORANGE if l=="Booked" else GREY3 if l in ["Not Interested","Pending"] else "#FF6B35" if l=="Follow-up" else "#666" for l in oc_cnt["label"]]
+        palette = {"Booked": ORANGE, "Follow-up": ORANGE2, "Callback": "#FF8C55", "Not Interested": "#2A2A2A", "Pending": "#1C1C1C", "Voicemail": "#333333", "Unknown": "#222222"}
+        colors = [palette.get(l, "#333") for l in oc_cnt["label"]]
         fig2 = go.Figure(go.Pie(
             labels=oc_cnt["label"], values=oc_cnt["count"],
             hole=0.6,
