@@ -619,8 +619,14 @@ with col2:
         oc_cnt = df[C["outcome"]].str.lower().str.strip().value_counts().reset_index()
         oc_cnt.columns = ["outcome","count"]
         oc_cnt["label"] = oc_cnt["outcome"].map(lambda x: OUTCOME_MAP.get(x, x.title()))
-        palette = {"Booked": ORANGE, "Follow-up": ORANGE2, "Callback": "#FF8C55", "Not Interested": "#2A2A2A", "Pending": "#1C1C1C", "Voicemail": "#333333", "Unknown": "#222222"}
-        colors = [palette.get(l, "#333") for l in oc_cnt["label"]]
+        # Largest slice = orange, second = orange2, rest = dark greys
+        dark_greys = ["#2A2A2A", "#1C1C1C", "#333333", "#222222", "#3A3A3A"]
+        sorted_idx = oc_cnt["count"].rank(ascending=False).astype(int)
+        colors = []
+        for rank in sorted_idx:
+            if rank == 1: colors.append(ORANGE)
+            elif rank == 2: colors.append(ORANGE2)
+            else: colors.append(dark_greys[min(rank-3, len(dark_greys)-1)])
         fig2 = go.Figure(go.Pie(
             labels=oc_cnt["label"], values=oc_cnt["count"],
             hole=0.6,
