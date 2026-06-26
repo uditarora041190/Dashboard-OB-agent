@@ -395,10 +395,16 @@ def load_sheet():
         tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False)
         tmp.write(os.getenv("GOOGLE_TOKEN_JSON")); tmp.close()
         token_path = tmp.name
-    # Streamlit Cloud: load token from secrets
+    # Streamlit Cloud: flat JSON string (preferred)
+    elif not os.path.exists(TOKEN_FILE) and hasattr(st, "secrets") and "GOOGLE_TOKEN_JSON" in st.secrets:
+        tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False)
+        tmp.write(st.secrets["GOOGLE_TOKEN_JSON"]); tmp.close()
+        token_path = tmp.name
+    # Streamlit Cloud: TOML section fallback
     elif not os.path.exists(TOKEN_FILE) and hasattr(st, "secrets") and "google_token" in st.secrets:
         tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False)
-        json.dump(dict(st.secrets["google_token"]), tmp); tmp.close()
+        tok = {k: (list(v) if hasattr(v,"__iter__") and not isinstance(v,str) else str(v)) for k,v in st.secrets["google_token"].items()}
+        json.dump(tok, tmp); tmp.close()
         token_path = tmp.name
     if not os.path.exists(token_path):
         return pd.DataFrame()
