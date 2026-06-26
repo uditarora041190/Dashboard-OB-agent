@@ -390,7 +390,13 @@ OUTCOME_MAP = {
 def load_sheet():
     sheet_id  = os.getenv("GOOGLE_SHEET_ID", "")
     token_path = TOKEN_FILE
-    if not os.path.exists(TOKEN_FILE) and hasattr(st, "secrets") and "google_token" in st.secrets:
+    # Render.com: load token from environment variable
+    if not os.path.exists(TOKEN_FILE) and os.getenv("GOOGLE_TOKEN_JSON"):
+        tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False)
+        tmp.write(os.getenv("GOOGLE_TOKEN_JSON")); tmp.close()
+        token_path = tmp.name
+    # Streamlit Cloud: load token from secrets
+    elif not os.path.exists(TOKEN_FILE) and hasattr(st, "secrets") and "google_token" in st.secrets:
         tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False)
         json.dump(dict(st.secrets["google_token"]), tmp); tmp.close()
         token_path = tmp.name
