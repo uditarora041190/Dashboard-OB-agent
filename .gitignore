@@ -1,0 +1,10 @@
+.env
+token.json
+google_credentials.json
+.assistant_id
+call_log.csv
+leads.csv
+leads_enriched.csv
+__pycache__/
+*.pyc
+.DS_Store
